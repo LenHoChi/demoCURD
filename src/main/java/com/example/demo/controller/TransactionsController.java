@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import com.example.demo.service.TransactionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.transactions;
+import com.example.demo.model.Transactions;
 import com.example.demo.repository.TransactionsRepository;
 
 @RestController
@@ -26,45 +27,51 @@ import com.example.demo.repository.TransactionsRepository;
 public class TransactionsController {
     @Autowired
     private TransactionsRepository transactionsRepository;
-
+    @Autowired
+    private TransactionsService transactionsService;
     @GetMapping("/transactions")
-    public List<transactions> getAllTransactions() {
-        return transactionsRepository.findAll();
+    public List<Transactions> getAllTransactions() {
+//        return transactionsRepository.findAll();
+        return transactionsService.getAllTransactions();
     }
 
     @GetMapping("/transactions/{id}")
-    public ResponseEntity<transactions> getTransactionsById(@PathVariable(value = "id") Long Id)
+    public ResponseEntity<Transactions> getTransactionsById(@PathVariable(value = "id") Long id)
             throws ResourceNotFoundException {
-        transactions ee = transactionsRepository.findById(Id)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + Id));
-        return ResponseEntity.ok().body(ee);
+//        Transactions transactions = transactionsRepository.findById(id)
+//                .orElseThrow(() -> new ResourceNotFoundException("Transaction not found for this id :: " + id));
+//        return ResponseEntity.ok().body(transactions);
+        return transactionsService.getTransactionById(id);
     }
 
     @PostMapping("/transactions")
-    public transactions createEmployee(@Valid @RequestBody transactions ee) {
-        return transactionsRepository.save(ee);
+    public Transactions createTransactions(@Valid @RequestBody Transactions transactions) {
+//        return transactionsRepository.save(transactions);
+        return transactionsService.saveTransactions(transactions);
     }
 
     @PutMapping("/transactions/{id}")
-    public ResponseEntity<transactions> updateEmployee(@PathVariable(value = "id") Long employeeId,
-                                                   @Valid @RequestBody transactions trans) throws ResourceNotFoundException {
-        transactions tran = transactionsRepository.findById(employeeId)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + employeeId));
-
-        tran.setBank(trans.getBank());
-        final transactions updatedEmployee = transactionsRepository.save(tran);
-        return ResponseEntity.ok(updatedEmployee);
+    public ResponseEntity<Transactions> updateTransactions(@PathVariable(value = "id") Long id,
+                                                       @Valid @RequestBody Transactions trans) throws ResourceNotFoundException {
+//        Transactions transactions = transactionsRepository.findById(id)
+//                .orElseThrow(() -> new ResourceNotFoundException("Transaction not found for this id :: " + id));
+//
+//        transactions.setBank(trans.getBank());
+//        final Transactions updatedTransaction = transactionsRepository.save(transactions);
+//        return ResponseEntity.ok(updatedTransaction);
+        return transactionsService.updateTransactions(id,trans);
     }
 
     @DeleteMapping("/transactions/{id}")
-    public Map<String, Boolean> deleteEmployee(@PathVariable(value = "id") Long Id)
+    public Map<String, Boolean> deleteTransactions(@PathVariable(value = "id") Long id)
             throws ResourceNotFoundException {
-        transactions tran = transactionsRepository.findById(Id)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + Id));
-
-        transactionsRepository.delete(tran);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return response;
+//        Transactions transactions = transactionsRepository.findById(id)
+//                .orElseThrow(() -> new ResourceNotFoundException("Transaction not found for this id :: " + id));
+//
+//        transactionsRepository.delete(transactions);
+//        Map<String, Boolean> response = new HashMap<>();
+//        response.put("deleted", Boolean.TRUE);
+//        return response;
+        return transactionsService.deleteTransactions(id);
     }
 }

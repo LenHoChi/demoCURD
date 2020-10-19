@@ -10,27 +10,27 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "transactions")
-public class transactions {
+public class Transactions {
 
     private long id;
-    private long user_id;
-    private long account_id;
+    private long userId;
+    private long accountId;
     private long amount;
-    private String transaction_type;
-    private Date created_at;
-      private String bank;
+    private String transactionType;
+    private Date createdAt;
+    private String bank;
 
-    public transactions() {
+    public Transactions() {
 
     }
 
-    public transactions(long user_id,long account_id,long amount,String transaction_type,Date created_at,String bank) {
+    public Transactions(long userId, long accountId, long amount, String transactionType, Date createdAt, String bank) {
         this.bank=bank;
-        this.user_id=user_id;
-        this.account_id=account_id;
+        this.userId=userId;
+        this.accountId=accountId;
         this.amount=amount;
-        this.transaction_type=transaction_type;
-        this.created_at=created_at;
+        this.transactionType=transactionType;
+        this.createdAt=createdAt;
     }
 
     @Id
@@ -43,18 +43,19 @@ public class transactions {
     }
 
     @Column(name = "user_id", nullable = false)
-    public long getUser_id() {
-        return user_id;
+    public long getUserId() {
+        return userId;
     }
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
+
     @Column(name = "account_id", nullable = false)
-    public long getAccount_id() {
-        return account_id;
+    public long getAccountId() {
+        return accountId;
     }
-    public void setAccount_id(long account_id) {
-        this.account_id = account_id;
+    public void setAccountId(long accountId) {
+        this.accountId = accountId;
     }
     @Column(name = "amount", nullable = false)
     public long getAmount() {
@@ -64,18 +65,18 @@ public class transactions {
         this.amount = amount;
     }
     @Column(name = "transaction_type", nullable = false)
-    public String getTransaction_type() {
-        return transaction_type;
+    public String getTransactionType() {
+        return transactionType;
     }
-    public void setTransaction_type(String transaction_type) {
-        this.transaction_type = transaction_type;
+    public void setTransactionType(String transactionType) {
+        this.transactionType = transactionType;
     }
     @Column(name = "created_at", nullable = false)
-    public Date getCreated_at() {
-        return created_at;
+    public Date getCreatedAt() {
+        return createdAt;
     }
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
     @Column(name = "bank", nullable = false)
     public String getBank() {
@@ -86,9 +87,14 @@ public class transactions {
     }
     @Override
     public String toString() {
-//        return "Employee [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", emailId=" + emailId
-//                + "]";
-        return "Employee: "+bank;
+        return "Transactions{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", accountId=" + accountId +
+                ", amount=" + amount +
+                ", transactionType='" + transactionType + '\'' +
+                ", createdAt=" + createdAt +
+                ", bank='" + bank + '\'' +
+                '}';
     }
-
 }
